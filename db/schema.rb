@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 20141017132644) do
     t.datetime "image_updated_at"
   end
 
+  create_table "orders", force: true do |t|
+    t.string   "address"
+    t.string   "town"
+    t.string   "county"
+    t.integer  "phone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "shopping_cart_items", force: true do |t|
     t.integer  "owner_id"
     t.string   "owner_type"
