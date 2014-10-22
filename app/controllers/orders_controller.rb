@@ -30,6 +30,8 @@ class OrdersController < ApplicationController
     @shopping_cart = ShoppingCart.find(params[:shopping_cart_id])
     @shopping_cart.order_id = @order.id
 
+    @order.user_id = 1;
+
     respond_to do |format|
       if @order.save
         format.html { redirect_to @shopping_cart, notice: 'Order was successfully created.' }

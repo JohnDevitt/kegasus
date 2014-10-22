@@ -11,23 +11,57 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :address %><br>
-    <%= f.text_field :address, class: "form-control"  %>
+  <div class = "row">
+    <div class = "col-md-6">
+      <div class="form-group">
+        <%= f.label :address %><br>
+        <%= f.text_field :address, class: "form-control"  %>
+      </div>
+      <div class="form-group">
+        <%= f.label :town  %><br>
+        <%= f.text_field :town, class: "form-control"  %>
+      </div>
+      <div class="form-group">
+        <%= f.label :county %><br>
+        <%= f.text_field :county, class: "form-control"  %>
+      </div>
+      <div class="form-group">
+        <%= f.label :phone %><br>
+        <%= f.number_field :phone, class: "form-control"  %>
+      </div>
+    </div>
+
+
+    <div class = "col-md-6">
+      <div class = "form-group">
+        <div class = "row">
+          <div class = "col-md-8">
+            <%= label_tag :card_nubmer, "Credit Card Number" %>
+            <%= text_field_tag :card_number, nil, { :name => nil, :'data-stripe' => "number", class: "form-control"} %>
+          </div>
+
+          <div class = "col-md-4">
+            <%= label_tag :card_code, "CVC Number" %>
+            <%= text_field_tag :card_code, nil, { :name => nil, :'data-stripe' => "cvc", class: "form-control"} %>
+          </div>
+        </div>
+      </div>
+
+      <div class = "form-group">
+        <div class = "row">
+          <div class = "col-md-4"></div>
+          <div class = "col-md-4">
+            <%= select_month nil, {use_two_digits_numbers: true}, { :name => nil, :'data-stripe' => "exp-month", class: "form-control"}%>
+          </div>
+          <div class ="col-md-4">
+            <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year + 10}, { :name => nil, :'data-stripe' => "exp-year", class: "form-control"}%>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
   <div class="form-group">
-    <%= f.label :town  %><br>
-    <%= f.text_field :town, class: "form-control"  %>
-  </div>
-  <div class="form-group">
-    <%= f.label :county %><br>
-    <%= f.text_field :county, class: "form-control"  %>
-  </div>
-  <div class="form-group">
-    <%= f.label :phone %><br>
-    <%= f.number_field :phone, class: "form-control"  %>
-  </div>
-  <div class="action">
-    <%= f.submit "Pay now!", class: "btn btn-success pull-right" %>
+    <%= f.submit "Beer Me!", class: "btn btn-success pull-right" %>
   </div>
 <% end %>
