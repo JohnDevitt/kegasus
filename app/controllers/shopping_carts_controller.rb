@@ -11,6 +11,7 @@ class ShoppingCartsController < ApplicationController
   # GET /shopping_carts/1
   # GET /shopping_carts/1.json
   def show
+    @total = @shopping_cart.subtotal
   end
 
   # GET /shopping_carts/new
@@ -33,8 +34,7 @@ class ShoppingCartsController < ApplicationController
       @quantity = 1
     end
 
-
-		@shopping_cart.add(@listing, @listing.price, @quantity)
+		@shopping_cart.add(@listing, @listing.price, @quantity.to_i)
 		
     respond_to do |format|
       if @shopping_cart.save
