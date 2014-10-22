@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   
 
-  resources :shopping_carts
+  # resources :orders
 
-  devise_for :users
-  resources :listings do
+  resources :shopping_carts do 
     resources :orders
   end
+
+  devise_for :users
+  resources :listings
 
   get 'pages/welcome'
 

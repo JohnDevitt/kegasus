@@ -4,6 +4,5 @@ class Listing < ActiveRecord::Base
     							:dropbox_credentials => Rails.root.join("config/dropbox.yml")
 	  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
-	  belongs_to :user
 	  has_many :orders
 end
