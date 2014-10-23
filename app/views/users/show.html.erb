@@ -1,0 +1,38 @@
+
+<p id="notice"><%= notice %></p>
+
+
+<div class = "container">
+  
+  <div class="panel panel-default">
+  <div class="panel-heading"><h3 class="panel-title">Basket</h3></div>
+
+  <div class="panel-body">
+    <div class = "table-reponsive">
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Address</th>
+                <th>Town</th>
+                <th>County</th>
+                <th>Phone</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @orders.each do |order| %>
+                <tr>
+                  <td><p><%= ShoppingCart.where(shopping_cart_id: order.id).id %></p></td>
+                  <td><p><%= order.town %></p></td>
+                  <td><p><%= order.county %></p></td>
+                  <td><p><%= order.phone %></p></td> 
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </br>
+</div>
+</div>

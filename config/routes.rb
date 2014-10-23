@@ -7,7 +7,12 @@ Rails.application.routes.draw do
     resources :orders
   end
 
-  devise_for :users
+  devise_for :users, :path => 'accounts'
+
+  resources :users do
+    resources :orders
+  end
+
   resources :listings
 
   get 'pages/welcome'

@@ -30,7 +30,11 @@ class OrdersController < ApplicationController
     @shopping_cart = ShoppingCart.find(params[:shopping_cart_id])
     @shopping_cart.order_id = @order.id
 
-    @order.user_id = 1;
+    if(user_signed_in?)
+      @order.user_id = current_user.id
+    else
+      @order.user_id = -1
+    end
 
     Stripe.api_key = ENV["STRIPE_API_KEY"]
     token = params[:stripeToken]
@@ -45,6 +49,8 @@ class OrdersController < ApplicationController
     rescue Stripe::CardError => e
       flash[:danger] = e.message
     end
+
+    session[:shopping_cart_id] = ShoppingCart.new.id
 
     respond_to do |format|
       if @order.save
