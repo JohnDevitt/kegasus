@@ -7,49 +7,50 @@
   	<div class="panel-heading"><h3 class="panel-title">Basket</h3></div>
   	
   	<div class="panel-body">
-	<table class="table table-stripperd">
-		<thead>
-			<tr>
-				<th>Item</th>
-				<th></th>
-				<th>Quantity</th>
-				<th>Price</th>
-				<th>Total</th>
-			</tr>
-		</thead>
+	  	<div class = "table table-reponsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th></th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Total</th>
+					</tr>
+				</thead>
 
-		<tbody>
-			<% @shopping_cart.shopping_cart_items.each do |product| %>
-			<tr>
-				<td>
-					<p><%= Listing.find(product.item_id).name %> </p>
-				</td>
-				<td>
-					<%= image_tag Listing.find(product.item_id).image.url(:thumb) %></br>
-				</td>
-				<td>
-					<p><%= product.quantity %> </p>
-				</td>
-				<td>
-					<p><%= number_to_currency(product.price, :unit => "€")%> </p>
-				</td>
-				<td>
-					<p><%= number_to_currency(product.quantity * product.price, :unit => "€") %> </p>
-				</td>
-			</tr>
-			<% end %>
+				<tbody>
+					<% @shopping_cart.shopping_cart_items.each do |product| %>
+					<tr>
+						<td>
+							<p><%= Listing.find(product.item_id).name %> </p>
+						</td>
+						<td>
+							<%= image_tag Listing.find(product.item_id).image.url(:thumb) %></br>
+						</td>
+						<td>
+							<p><%= product.quantity %> </p>
+						</td>
+						<td>
+							<p><%= number_to_currency(product.price, :unit => "€")%> </p>
+						</td>
+						<td>
+							<p><%= number_to_currency(product.quantity * product.price, :unit => "€") %> </p>
+						</td>
+					</tr>
+					<% end %>
 
 
-			<tr>
-				<th>Total:</th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th><%= number_to_currency(@shopping_cart.subtotal, :unit => "€") %></th>
-			</tr>
-		</tbody>
+					<tr>
+						<th>Total:</th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th><%= number_to_currency(@shopping_cart.subtotal, :unit => "€") %></th>
+					</tr>
+				</tbody>
 
-	</table>
+			</table>
 	</div>
 </div>
 
