@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
 
     @order = Order.new(order_params)
     @shopping_cart = ShoppingCart.find(params[:shopping_cart_id])
-    @shopping_cart.order_id = @order.id
+    @order.shopping_cart_id = @shopping_cart.id
 
     if(user_signed_in?)
       @order.user_id = current_user.id

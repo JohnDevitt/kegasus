@@ -12,7 +12,7 @@
 				<thead>
 					<tr>
 						<th>Item</th>
-						<th></th>
+						<th class = "order-image"></th>
 						<th>Quantity</th>
 						<th>Price</th>
 						<th>Total</th>
@@ -25,8 +25,8 @@
 						<td>
 							<p><%= Listing.find(product.item_id).name %> </p>
 						</td>
-						<td>
-							<%= image_tag Listing.find(product.item_id).image.url(:thumb) %></br>
+						<td class = "order-image">
+							<%= image_tag Listing.find(product.item_id).image.url(:thumb)%></br>
 						</td>
 						<td>
 							<p><%= product.quantity %> </p>
@@ -43,7 +43,7 @@
 
 					<tr>
 						<th>Total:</th>
-						<th></th>
+						<th class = "order-image"></th>
 						<th></th>
 						<th></th>
 						<th><%= number_to_currency(@shopping_cart.subtotal, :unit => "€") %></th>
@@ -65,8 +65,6 @@
 	<%= link_to "Check Out Now!", new_shopping_cart_order_path(:shopping_cart_id => @shopping_cart.id), class: "btn btn-success pull-right", data: {no_turbolink: true} %>
 </div>
 
-</br>
-</br>
 </br>
 
 <!--

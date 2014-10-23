@@ -12,20 +12,22 @@
         <table class="table">
             <thead>
               <tr>
+                <th>Order #</th>
+                <th>Total</th>
                 <th>Address</th>
-                <th>Town</th>
-                <th>County</th>
-                <th>Phone</th>
+                <th>Date</th>
+                <th>Delivered</th>
               </tr>
             </thead>
 
             <tbody>
               <% @orders.each do |order| %>
                 <tr>
-                  <td><p><%= ShoppingCart.where(shopping_cart_id: order.id).id %></p></td>
-                  <td><p><%= order.town %></p></td>
-                  <td><p><%= order.county %></p></td>
-                  <td><p><%= order.phone %></p></td> 
+                  <td><p><%= order.id %></p></td>
+                  <td><p><%= number_to_currency(ShoppingCart.find(order.shopping_cart_id).subtotal, :unit => "€") %></p></td>
+                  <td><p><%= order.address %></p></td>
+                  <td><p><%= order.created_at %></p></td>
+                  <td><p><%= false %></p></td> 
                 </tr>
               <% end %>
             </tbody>

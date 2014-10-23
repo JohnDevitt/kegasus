@@ -1,7 +1,12 @@
 
 <div class = "container">
 
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+  <div class = "panel panel-default">
+
+    <div class="panel-heading"><h3 class = "panel-title">Edit <%= resource_name.to_s.humanize %></h3></div>
+
+  <div class="panel-body">
+
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
@@ -42,5 +47,9 @@
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %></p>
 
 <%= link_to "Back", :back %>
+
+</div>
+
+</div>
 
 </div>
