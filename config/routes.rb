@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   get 'pages/contact'
 
+  get 'orders/delivery_locations'
+
   root 'pages#welcome'
 
   # The priority is based upon order of creation: first created -> highest priority.

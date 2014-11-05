@@ -44,14 +44,14 @@ gem 'acts_as_shopping_cart', '~> 0.2.1'
 
 gem 'spinjs-rails'
 
-group :production do
-	gem 'pg'
-	gem 'rails_12factor'
-end
+gem 'pg'
+gem 'rails_12factor'
 
-group :development, :test do
-	gem 'sqlite3'
-end
+gem 'geocoder'
+
+gem 'gmaps4rails'
+
+gem 'underscore-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

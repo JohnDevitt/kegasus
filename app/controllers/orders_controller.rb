@@ -22,6 +22,17 @@ class OrdersController < ApplicationController
   def edit
   end
 
+  def delivery_locations
+    puts "----------------------------------------------------------------------------------------"
+      @orders = Order.where(fulfilled: false)
+      @hash = Gmaps4rails.build_markers(@orders) do |order, marker|
+        marker.lat order.latitude
+        marker.lng order.longitude
+      end
+
+    puts "----------------------------------------------------------------------------------------"
+  end
+
   # POST /orders
   # POST /orders.json
   def create
