@@ -48,5 +48,11 @@ handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
   markers = handler.addMarkers(<%=raw @hash.to_json %>);
   handler.bounds.extendWith(markers);
   handler.fitMapToBounds();
+
+  polyline = <%=raw @hash.to_json %>
+  handler.addPolyline(polyline); // and not addPolylines
+  handler.bounds.extend(polyline[0]);
+  handler.bounds.extend(polyline[ polyline.length - 1]);
+  handler.fitMapToBounds();
 });
 </script>

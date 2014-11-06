@@ -30,6 +30,8 @@ class OrdersController < ApplicationController
         marker.lng order.longitude
       end
 
+      @hash.push(lat: @orders.at(0).latitude, lng: @orders.at(0).longitude)
+
     puts "----------------------------------------------------------------------------------------"
   end
 
@@ -40,6 +42,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @shopping_cart = ShoppingCart.find(params[:shopping_cart_id])
     @order.shopping_cart_id = @shopping_cart.id
+    @order.fulfilled = false
 
     if(user_signed_in?)
       @order.user_id = current_user.id
