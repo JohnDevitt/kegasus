@@ -45,14 +45,20 @@
 <script>
 handler = Gmaps.build('Google');
 handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-  markers = handler.addMarkers(<%=raw @hash.to_json %>);
-  handler.bounds.extendWith(markers);
-  handler.fitMapToBounds();
+    
+  var jsonData = <%=raw @hash.to_json %>;
 
-  polyline = <%=raw @hash.to_json %>
-  handler.addPolyline(polyline); // and not addPolylines
-  handler.bounds.extend(polyline[0]);
-  handler.bounds.extend(polyline[ polyline.length - 1]);
-  handler.fitMapToBounds();
+  for(var i = 0; i < jsonData.length; i++) {
+    markers = handler.addMarkers(jsonData[i]);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+  }
+
+  for(var i = 0; i < jsonData.length; i++) {
+    handler.addPolyline(jsonData[i]); // and not addPolylines
+    handler.bounds.extend(jsonData[i]);
+    handler.bounds.extend(jsonData[i][ jsonData.length - 1]);
+    handler.fitMapToBounds();
+  }
 });
 </script>

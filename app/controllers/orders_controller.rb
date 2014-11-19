@@ -1,7 +1,9 @@
 require 'open-uri'
 require 'json'
 
-require 'tsp.rb'
+#require 'tsp.rb'
+
+require 'mtsp.rb'
 
 class OrdersController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
@@ -28,17 +30,43 @@ class OrdersController < ApplicationController
   end
 
   def delivery_locations
-      @orders = Order.where(fulfilled: false)
+      
+    @orders = Order.where(fulfilled: false)
+    @depots = Depot.order(:address)
 
-      salesman = Salesman.new @orders
-      @orders = salesman.solve
+    salesmen = MultipleTravellilngSalesman.new @orders, @depots
+    @clusterList = salesmen.solve
 
-      @hash = Gmaps4rails.build_markers(@orders) do |order, marker|
+    @hash = Array.new
+    count = 0
+
+    @clusterList.each do |cluster|
+
+      puts "====================================================="
+      puts cluster.inspect
+      puts "====================================================="
+
+      @hash[count] = Gmaps4rails.build_markers(cluster) do |order, marker|
         marker.lat order.latitude
         marker.lng order.longitude
+        marker.title order.address
       end
 
-      @hash.push(lat: @orders.at(0).latitude, lng: @orders.at(0).longitude)
+        @hash[count].push(lat: cluster.at(0).latitude, lng: cluster.at(0).longitude, title: cluster.at(0).address)
+        count = count + 1
+    end
+      #@orders = Order.where(fulfilled: false)
+
+      #salesman = Salesman.new @orders
+      #@orders = salesman.solve
+
+      #@hash = Gmaps4rails.build_markers(@orders) do |order, marker|
+       # marker.lat order.latitude
+       # marker.lng order.longitude
+       # marker.title order.address
+      #end
+
+      #@hash.push(lat: @orders.at(0).latitude, lng: @orders.at(0).longitude)
   end
 
   # POST /orders

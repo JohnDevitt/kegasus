@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
 
+  get 'depot/addDepot'
+
   # resources :orders
 
   resources :shopping_carts do 
@@ -22,6 +24,8 @@ Rails.application.routes.draw do
   get 'pages/contact'
 
   get 'orders/delivery_locations'
+
+  post 'depot/create'
 
   root 'pages#welcome'
 

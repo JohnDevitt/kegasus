@@ -1,3 +1,64 @@
+class MultipleTravellilngSalesman
+
+	def initialize(orders, depots)
+    @orders = orders
+    @depots = depots
+  end
+
+  def solve()
+
+    # Generate immutable city objects from our delivery addresses and depots, and store them in immutable managers
+
+    tourManager = TourManager.new Array.new
+    depotManager = DepotManager.new Array.new
+    
+    @orders.each do |order|
+      tourManager.addCity (City.new order).freeze
+    end
+    tourManager.deepFreeze
+
+    @depots.each do |depot|
+      depotManager.addDepot (City.new depot).freeze
+    end
+    depotManager.deepFreeze
+
+    # From out depotList, create depot clusters, which will hold the depot and the towns being serviced from that depot, our clusters can be
+    # stored in an array
+
+    depotClusterList = Array.new
+
+    depotManager.each do |clusterCenter|
+      depotClusterList << DepotCluster.new(clusterCenter, Array.new)
+    end
+
+
+    # We can now initially sort our towns into clusters with a basic algorithm, for each town, find the cluster with the closest center and
+    # sort the town into that cluster
+
+    tourManager.each do |city|
+      nearestCluster = depotClusterList.at(0)
+      depotClusterList.each do |cluster|
+        if(cluster.getDistanceFromDepot city) < (nearestCluster.getDistanceFromDepot city)
+          nearestCluster = cluster
+        end
+      end
+
+      nearestCluster.addCity city
+    end
+
+    # for each cluster we slove the tsp and encode our routes in a Tour object
+
+    tourList = Array.new
+
+    depotClusterList.each do |cluster|
+      tourList << cluster.solve
+    end
+
+    return tourList
+  end
+
+end
+
 class Numeric
   def to_rad
     self * Math::PI / 180
@@ -49,7 +110,7 @@ class City
   end
 end
 
-
+###############################     Depot and Tour managers hold the initial list of depots and towns  #######################
 
 class TourManager
 
@@ -80,6 +141,76 @@ class TourManager
     end
   end
 
+end
+
+class DepotManager
+
+  def initialize(depots)
+    @depots = depots
+  end
+
+  def addDepot(depot)
+    @depots.push depot
+  end
+
+  def getCity(index)
+    return @depots.at index
+  end
+
+  def getSize()
+    return @depots.size
+  end
+
+  def deepFreeze()
+    @depots.freeze
+    self.freeze
+  end
+
+  def each
+    @depots.each do |depot|
+      yield depot
+    end
+  end
+
+end
+
+
+class DepotCluster
+
+	def initialize(depot, localCities)
+		@depot = depot
+		@localCities = localCities
+	end
+
+	def getDistanceFromDepot(town)
+    return @depot.getDistance town
+	end
+
+	def addCity(town)
+		@localCities << town
+	end
+
+  def solve
+    array = Array.new
+
+    array << @depot
+    @localCities.each do |city|
+      array << city
+    end
+
+    manager = TourManager.new array
+    algorithm = GreedyAlgorithm.new
+
+    greedyTour = algorithm.generateInitialTour manager
+    optimizedTour = algorithm.optimize greedyTour
+
+    result = Array.new
+    for city in 0..optimizedTour.getSize - 1
+      result.push optimizedTour.getCity(city).getOrder
+    end
+
+    return result
+  end
 end
 
 
@@ -124,6 +255,8 @@ class Tour
       total = total + @cities.at(i).getDistance(@cities.at(i + 1))
     end
 
+    total = total + @cities.at(@cities.size - 1).getDistance(@cities.at(0))
+
     return total
   end
 
@@ -133,6 +266,7 @@ class Tour
     end
   end
 end
+
 
 class GreedyAlgorithm
 
@@ -156,7 +290,6 @@ class GreedyAlgorithm
     nearestNeighbour = tour.lastCity
     manager.each do |city|
       if( (tour.contains(city) == false) && (city.getDistance(tour.lastCity)) < shortestDistance )
-        puts "hey yah!"
         nearestNeighbour = city
       end
     end
@@ -169,6 +302,7 @@ class GreedyAlgorithm
     bestDistance = localTour.getDistance
 
     while improved == true
+
       localTour = recursiveTwoOpt(0, 1, localTour)
 
       if localTour.getDistance < bestDistance
@@ -218,43 +352,6 @@ class GreedyAlgorithm
 
     return localTour
 
-  end
-
-end
-
-
-
-class Salesman
-
-  def initialize(orders)
-    @orders = orders
-  end
-
-  def solve()
-
-    # Generate city immutable City objects, and store them in an immutable TourManager object
-
-    manager = TourManager.new Array.new
-    @orders.each do |order|
-      manager.addCity (City.new order).freeze
-    end
-    manager.deepFreeze
-
-    # Contruct a tour based on our manager
-
-    algorithm = GreedyAlgorithm.new
-    greedyTour = algorithm.generateInitialTour manager
-
-    # Optimize that tour
-
-    optimizedTour = algorithm.optimize greedyTour
-
-    result = Array.new
-    for city in 0..optimizedTour.getSize - 1
-      result.push optimizedTour.getCity(city).getOrder
-    end
-
-    return result
   end
 
 end
