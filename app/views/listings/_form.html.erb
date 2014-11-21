@@ -24,6 +24,18 @@
     <%= f.text_field :price, class: "form-control" %>
   </div>
   <div class="form-group">
+    <%= f.label :volume %><br>
+    <%= f.text_field :volume, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :abv %><br>
+    <%= f.text_field :abv, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :category %><br>
+    <%= f.select :category, Listing.categories, {}, {class: "form-control"} %>
+  </div>
+  <div class="form-group">
     <%= f.label :image %><br>
     <%= f.file_field :image, class: "form-control" %>
   </div>

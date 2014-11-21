@@ -16,4 +16,5 @@
 //= require turbolinks
 //= require underscore
 //= require gmaps/google
+//= require filterrific/filterrific-jquery
 //= require_tree .

@@ -1,0 +1,7 @@
+<%# app/views/students/index.js.erb %>
+<% js = escape_javascript(
+  render(partial: 'listings/list', locals: { listings: @listings })
+) %>
+$("#filterrific_results").html("<%= js %>");
+$('#ex8').slider({});
+$('.selectpicker').selectpicker();
