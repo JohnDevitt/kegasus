@@ -20,3 +20,11 @@ body {
 .col-md-3:nth-child(4n + 1){
 	clear:left;
 }
+
+#list-container{
+	display: inline;
+}
+
+#filter-container{
+	display: inline;
+}

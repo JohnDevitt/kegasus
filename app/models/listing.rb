@@ -2,7 +2,7 @@ class Listing < ActiveRecord::Base
 
 	  enum categories: [:beer, :wine, :spirits, :soft_drinks, :party_food]
 
-	  has_attached_file :image, :styles => { :medium => "200x>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png",
+	  has_attached_file :image, :styles => { :medium => "200x200", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png",
 	  							:storage => :dropbox,
     							:dropbox_credentials => Rails.root.join("config/dropbox.yml")
 	  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
@@ -49,6 +49,9 @@ class Listing < ActiveRecord::Base
 	  }
 
 	  scope :filtered_by, lambda { |filter_category|
+	  	puts "---------------------------------"
+	  	puts [*filter_category].inspect
+	  	puts "---------------------------------"
 	  	where(category: [*filter_category])
 	  }
 
@@ -68,7 +71,7 @@ class Listing < ActiveRecord::Base
 	  	when /^percentage_/
 	  		order("listings.abv #{direction }")
 	  	when /^buzz_for_buck_/
-	  		order("listings.created_at #{direction }")
+	  		order("listings.volume * abv / 100 / price #{direction }")
 	  	else
     		raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
   		end
@@ -86,11 +89,11 @@ class Listing < ActiveRecord::Base
 
 	  def self.options_for_filtered_by
 		[
-			['Beer', :beer],
-			['Wine', :wine],
-			['Spirits', :spirits],
-			['Soft Drinks', :soft_drinks],
-			['Party Food', :party_food]
+			['Beer', '0'],
+			['Wine', '1'],
+			['Spirits', '2'],
+			['Soft Drinks', '3'],
+			['Party Food', '4']
 		]
 	  end
 end

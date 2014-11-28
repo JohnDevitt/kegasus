@@ -15,8 +15,10 @@ Rails.application.routes.draw do
     resources :orders
   end
 
-  resources :listings
-
+  resources :listings do
+    get 'reset_filterrific', :on => :collection
+  end
+  
   get 'pages/welcome'
 
   get 'pages/about'

@@ -1,4 +1,6 @@
-<div id="filterrific_results">
+
+
+<div id="filterrific_results" class = "container">
 
   <div class = "row">
     <% @listings.each do |listing| %>
@@ -21,7 +23,7 @@
                   </div>
 
                   <div class="col-lg-5">
-                    <b>Percentage: </b>
+                    <b>Alocoholic Percentage: </b>
                     <p><%= listing.ABV %> %</p>
                   </div>
                 </div>
@@ -49,3 +51,4 @@
 </div>
 
   <%= will_paginate @posts, renderer: BootstrapPagination::Rails, :class => 'pull-right' %>
+

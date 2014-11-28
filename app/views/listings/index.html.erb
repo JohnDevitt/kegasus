@@ -7,15 +7,15 @@
           <div class = "form-group col-md-3">
             <%= f.text_field(
               :search_query,
-              class: 'form-control',
+              class: 'form-control filterrific-periodically-observed text-center',
               placeholder: 'Search'
             ) %>
           </div>
 
-          <div class = "form-group col-md-2">
+          <div class = "form-group col-md-3">
             <%= f.text_field(
               :max_price,
-              class: 'form-control',
+              class: 'form-control filterrific-periodically-observed text-center',
               placeholder: 'Max Price'
             ) %>
           </div>
@@ -25,7 +25,7 @@
               :filtered_by,
               @filterrific.select_options[:filtered_by],
               {},
-              {class: "form-control selectpicker", placeholer: "Show Only"}
+              {class: "selectpicker text-center", style: "data-width: 100%"}
             ) %>
           </div>
 
@@ -34,23 +34,33 @@
               :sorted_by,
               @filterrific.select_options[:sorted_by],
               {},
-              {class: "form-control selectpicker", placeholder: "Sort By"} 
+              {class: "selectpicker text-center"} 
             ) %>
           </div>
 
-          <div class = "col-md-1">
-            <%= submit_tag "Search!", class: "btn btn-primary pull-right"%>
           </div>
+
+          <div class = "row">
+
+<%# add an automated spinner to your form when the list is refreshed %>
+          <div class ="form-group col-md-11">
+          <%= render_filterrific_spinner %>
         </div>
+
+          <div class ="form-group col-md-1">
+            <%= link_to('Reset filters',reset_filterrific_listings_path, method: :get, class: "btn btn-danger pull-right") %>
+          </div>
+
+          </div>
       <% end %>
     </div>
   </div>
+</div>
 
-  <%= render(
+<%= render(
     partial: 'listings/list',
     locals: { listings: @listings }
   ) %>
-</div>
 
 <!--
 <%= link_to 'New Listing', new_listing_path, class: "btn btn-link"  %>

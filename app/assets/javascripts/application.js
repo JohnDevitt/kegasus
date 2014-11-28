@@ -17,4 +17,5 @@
 //= require underscore
 //= require gmaps/google
 //= require filterrific/filterrific-jquery
+//= require bootstrap-select
 //= require_tree .

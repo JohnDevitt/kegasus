@@ -1,6 +1,7 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
 
+
   # GET /listings
   # GET /listings.json
   def index
@@ -74,6 +75,13 @@ class ListingsController < ApplicationController
       format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def reset_filterrific
+    # Clear session persistence
+    session[:filterrific_listings] = nil
+    # Redirect back to the index action for default filter settings.
+    redirect_to action: :index
   end
 
   private
