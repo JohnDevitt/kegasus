@@ -1,0 +1,11 @@
+<%# app/views/students/index.js.erb %>
+<% js = escape_javascript(
+  render(partial: 'listings/list', locals: { listings: @listings })
+) %>
+$("#filterrific_results").html("<%= js %>");
+
+
+var ready = alert("bloop!");
+
+$(document).ready(ready)
+$(document).on('page:load', ready)

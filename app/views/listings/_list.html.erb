@@ -3,7 +3,7 @@
 <div id="filterrific_results">
   <div class = "row">
     <% @listings.each do |listing| %>
-      <div class ="col-md-3">
+      <div class ="col-md-3 col-sm-6">
 
          <div class="thumbnail">
             <%= image_tag listing.image.url(:medium) %></br>
@@ -13,15 +13,12 @@
               <p><%= number_to_currency(listing.price, :unit => "€") %></br></p>
                 
                 <div class="row">
-                  <div class="col-lg-5">
+                  <div class="col-md-6">
                     <b>Volume: </b>
                     <p><%= listing.volume %> ml</p>
                   </div>
 
-                  <div class="col-lg-2">
-                  </div>
-
-                  <div class="col-lg-5">
+                  <div class="col-md-6">
                     <b>Percentage: </b>
                     <p><%= listing.abv %> %</p>
                   </div>
@@ -32,12 +29,9 @@
                   <div class="col-lg-6">
                     <%= number_field_tag(:quantity, :price, in: 1..300, step: 1, class: "form-control", placeholder: "Quantity")%>
                   </div>
-                  <div class="col-lg-1">
-                    <%= hidden_field_tag(:listing_id, listing.id) %>
-                    <!--  SPACING -->
-                  </div>
-                  <div class="col-lg-5">
-                    <%= submit_tag 'Add to cart', class: "btn btn-primary" %>
+                  <br class="rwd-break"></br>
+                  <div class="col-lg-6">
+                    <%= submit_tag 'Add to cart', class: "btn btn-primary btn-block"%>
                   </div>
                   <% end %>
                 </div>

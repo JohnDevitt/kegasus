@@ -17,7 +17,8 @@ class Listing < ActiveRecord::Base
       		:search_query,
       		:sorted_by,
       		:max_price,
-      		:filtered_by
+      		:filtered_by,
+      		:extraOpt
     	]
   	  )
 
@@ -49,9 +50,6 @@ class Listing < ActiveRecord::Base
 	  }
 
 	  scope :filtered_by, lambda { |filter_category|
-	  	puts "---------------------------------"
-	  	puts [*filter_category].inspect
-	  	puts "---------------------------------"
 	  	where(category: [*filter_category])
 	  }
 
@@ -77,6 +75,12 @@ class Listing < ActiveRecord::Base
   		end
 	  }
 
+	  scope :extraOpt, lambda { |extraOpt|
+	  	puts "-----------------------"
+	  	puts extrOpt.inspect
+	  	puts "-----------------------"
+	  }
+
 
 	  def self.options_for_sorted_by
 		[
@@ -89,6 +93,7 @@ class Listing < ActiveRecord::Base
 
 	  def self.options_for_filtered_by
 		[
+			['All', '2 OR 1 OR 0 OR 3 OR 4'],
 			['Beer', '0'],
 			['Wine', '1'],
 			['Spirits', '2'],

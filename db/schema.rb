@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141121190224) do
+ActiveRecord::Schema.define(version: 20141205163036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,35 @@ ActiveRecord::Schema.define(version: 20141121190224) do
     t.float    "latitude"
     t.float    "longitude"
     t.boolean  "fulfilled"
+  end
+
+  create_table "pubs", force: true do |t|
+    t.string   "name"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pubs_routes", id: false, force: true do |t|
+    t.integer "pub_id"
+    t.integer "route_id"
+  end
+
+  add_index "pubs_routes", ["pub_id", "route_id"], name: "index_pubs_routes_on_pub_id_and_route_id", using: :btree
+  add_index "pubs_routes", ["route_id"], name: "index_pubs_routes_on_route_id", using: :btree
+
+  create_table "routes", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rules", force: true do |t|
+    t.string   "title"
+    t.text     "details"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "shopping_cart_items", force: true do |t|
