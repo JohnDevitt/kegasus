@@ -29,6 +29,11 @@
                   <div class="col-lg-6">
                     <%= number_field_tag(:quantity, :price, in: 1..300, step: 1, class: "form-control", placeholder: "Quantity")%>
                   </div>
+                  <div class="col-lg-1">
+-                    <%= hidden_field_tag(:listing_id, listing.id) %>
+-                    <!--  SPACING -->
+-                  </div>
+-                  <div class="col-lg-5">
                   <br class="rwd-break"></br>
                   <div class="col-lg-6">
                     <%= submit_tag 'Add to cart', class: "btn btn-primary btn-block"%>
