@@ -22,6 +22,10 @@ class MultipleTravellilngSalesman
     end
     depotManager.deepFreeze
 
+    puts "============================"
+    puts depotManager.inspect
+    puts "============================"
+
     # From out depotList, create depot clusters, which will hold the depot and the towns being serviced from that depot, our clusters can be
     # stored in an array
 
