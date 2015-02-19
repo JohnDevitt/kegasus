@@ -40,7 +40,7 @@ class OrdersController < ApplicationController
     @hash = Array.new
     count = 0
 
-    @clusterList.each do |cluster|
+    #@clusterList.each do |cluster|
 
       #puts "====================================================="
       #puts cluster.inspect
