@@ -1,5 +1,3 @@
-<div class = "container">
-
 <div id="filterrific_results">
   <div class = "row">
     <% @listings.each do |listing| %>
@@ -47,6 +45,4 @@
 
 </div>
 
-  <%= will_paginate @students, renderer: BootstrapPagination::Rails, :class => 'pull-right' %>
-
-</div>
+<%= will_paginate @students, renderer: BootstrapPagination::Rails, :class => 'pull-right' %>

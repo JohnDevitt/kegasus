@@ -55,12 +55,14 @@
   </div>
 </div>
 
+<div class="container">
 
 <%= render(
     partial: 'listings/list',
     locals: { listings: @listings }
   ) %>
 
+</div>
 
 <!--
 <%= link_to 'New Listing', new_listing_path, class: "btn btn-link"  %>
