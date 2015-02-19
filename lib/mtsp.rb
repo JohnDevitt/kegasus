@@ -35,16 +35,10 @@ class MultipleTravellilngSalesman
     # We can now initially sort our towns into clusters with a basic algorithm, for each town, find the cluster with the closest center and
     # sort the town into that cluster
 
-    puts "MESSAGE 0 -----------------------------------------"
-
-
-    puts "MESSAGE -----------------------------------------"
-
     tourManager.each do |city|
       nearestCluster = depotClusterList.at(0)
       depotClusterList.each do |cluster|
         if(cluster.getDistanceFromDepot city) < (nearestCluster.getDistanceFromDepot city)
-          puts "LOGS---------------------------------------------"
           nearestCluster = cluster
         end
       end
@@ -186,9 +180,20 @@ class DepotCluster
 	def initialize(depot, localCities)
 		@depot = depot
 		@localCities = localCities
+
+    puts "---------------------- DEPOT ----------------------------"
+      puts @depot.inspect
+    puts "---------------------- END DEPOT ----------------------------"
+
+    puts "---------------------- CITIES ----------------------------"
+      puts @localCities.inspect
+    puts "---------------------- END CITIES ----------------------------"
 	end
 
 	def getDistanceFromDepot(town)
+    puts "---------------- DISTANCE --------------------"
+     puts @depot.getDistance town
+    puts "-------------------- END ---------------------"
     return @depot.getDistance town
 	end
 
