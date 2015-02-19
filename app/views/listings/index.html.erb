@@ -22,14 +22,12 @@
           </div>
 
           <div class = "form-group col-md-2">
-            <div class = "row-fluid">
             <%= f.select(
               :filtered_by,
               @filterrific.select_options[:filtered_by],
               {},
               {class: "text-center form-control"}
             ) %>
-          </div>
           </div>
 
           <div class = "form-group col-md-2">
@@ -57,10 +55,14 @@
   </div>
 </div>
 
+<div class="container">
+
 <%= render(
     partial: 'listings/list',
     locals: { listings: @listings }
   ) %>
+
+</div>
 
 <!--
 <%= link_to 'New Listing', new_listing_path, class: "btn btn-link"  %>
