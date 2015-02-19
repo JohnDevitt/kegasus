@@ -61,7 +61,6 @@
     locals: { listings: @listings }
   ) %>
 
-<%= will_paginate @posts, renderer: BootstrapPagination::Rails, :class => 'pull-right' %>
 
 <!--
 <%= link_to 'New Listing', new_listing_path, class: "btn btn-link"  %>
