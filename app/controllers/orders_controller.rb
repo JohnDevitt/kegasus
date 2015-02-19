@@ -40,11 +40,7 @@ class OrdersController < ApplicationController
     @hash = Array.new
     count = 0
 
-    #@clusterList.each do |cluster|
-
-      #puts "====================================================="
-      #puts cluster.inspect
-      #puts "====================================================="
+    @clusterList.each do |cluster|
 
       #@hash[count] = Gmaps4rails.build_markers(cluster) do |order, marker|
         #marker.lat order.latitude
@@ -53,8 +49,8 @@ class OrdersController < ApplicationController
       #end
 
         #@hash[count].push(lat: cluster.at(0).latitude, lng: cluster.at(0).longitude, title: cluster.at(0).address)
-        #count = count + 1
-    #end
+        count = count + 1
+    end
 
 
 
