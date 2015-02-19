@@ -31,30 +31,35 @@ class OrdersController < ApplicationController
 
   def delivery_locations
       
-    @orders = Order.where(fulfilled: false)
-    @depots = Depot.order(:address)
+    #@orders = Order.where(fulfilled: false)
+    #@depots = Depot.order(:address)
 
-    salesmen = MultipleTravellilngSalesman.new @orders, @depots
-    @clusterList = salesmen.solve
+    #salesmen = MultipleTravellilngSalesman.new @orders, @depots
+    #@clusterList = salesmen.solve
 
-    @hash = Array.new
-    count = 0
+    #@hash = Array.new
+    #count = 0
 
-    @clusterList.each do |cluster|
+    #@clusterList.each do |cluster|
 
-      puts "====================================================="
-      puts cluster.inspect
-      puts "====================================================="
+      #puts "====================================================="
+      #puts cluster.inspect
+      #puts "====================================================="
 
-      @hash[count] = Gmaps4rails.build_markers(cluster) do |order, marker|
-        marker.lat order.latitude
-        marker.lng order.longitude
-        marker.title order.address
-      end
+      #@hash[count] = Gmaps4rails.build_markers(cluster) do |order, marker|
+        #marker.lat order.latitude
+        #marker.lng order.longitude
+        #marker.title order.address
+      #end
 
-        @hash[count].push(lat: cluster.at(0).latitude, lng: cluster.at(0).longitude, title: cluster.at(0).address)
-        count = count + 1
-    end
+        #@hash[count].push(lat: cluster.at(0).latitude, lng: cluster.at(0).longitude, title: cluster.at(0).address)
+        #count = count + 1
+    #end
+
+
+
+
+    
       #@orders = Order.where(fulfilled: false)
 
       #salesman = Salesman.new @orders
