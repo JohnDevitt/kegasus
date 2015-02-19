@@ -34,13 +34,13 @@ class OrdersController < ApplicationController
     @orders = Order.where(fulfilled: false)
     @depots = Depot.order(:address)
 
-    #salesmen = MultipleTravellilngSalesman.new @orders, @depots
-    #@clusterList = salesmen.solve
+    salesmen = MultipleTravellilngSalesman.new @orders, @depots
+    @clusterList = salesmen.solve
 
-    #@hash = Array.new
-    #count = 0
+    @hash = Array.new
+    count = 0
 
-    #@clusterList.each do |cluster|
+    @clusterList.each do |cluster|
 
       #puts "====================================================="
       #puts cluster.inspect
