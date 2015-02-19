@@ -12,7 +12,8 @@ class ListingsController < ApplicationController
       filtered_by: Listing.options_for_filtered_by
     }
 
-    @listings = Listing.filterrific_find(@filterrific).page(params[:page])   # .paginate(:page => params[:page])
+    @listings = Listing.filterrific_find(@filterrific).page(params[:page])
+    @listings.paginate(:page => params[:page])
 
 
     session[:filterrific_listings] = @filterrific.to_hash
