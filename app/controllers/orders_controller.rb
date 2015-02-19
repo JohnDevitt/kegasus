@@ -31,8 +31,8 @@ class OrdersController < ApplicationController
 
   def delivery_locations
       
-    #@orders = Order.where(fulfilled: false)
-    #@depots = Depot.order(:address)
+    @orders = Order.where(fulfilled: false)
+    @depots = Depot.order(:address)
 
     #salesmen = MultipleTravellilngSalesman.new @orders, @depots
     #@clusterList = salesmen.solve
@@ -59,7 +59,7 @@ class OrdersController < ApplicationController
 
 
 
-    
+
       #@orders = Order.where(fulfilled: false)
 
       #salesman = Salesman.new @orders
