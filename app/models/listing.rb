@@ -49,7 +49,9 @@ class Listing < ActiveRecord::Base
 	  }
 
 	  scope :filtered_by, lambda { |filter_category|
-	  	where(category: [*filter_category])
+	  	if filter_category != "ALL"
+	  		where(category: [*filter_category])
+	  	end
 	  }
 
 	  scope :max_price, lambda { |max_price|
@@ -86,7 +88,7 @@ class Listing < ActiveRecord::Base
 
 	  def self.options_for_filtered_by
 		[
-			['All', '[0,1,2,3,4]'],
+			['All', 'ALL'],
 			['Beer', '0'],
 			['Wine', '1'],
 			['Spirits', '2'],
