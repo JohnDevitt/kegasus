@@ -22,10 +22,6 @@ class MultipleTravellilngSalesman
     end
     depotManager.deepFreeze
 
-    puts "============================"
-    puts tourManager.inspect
-    puts "============================"
-
     # From out depotList, create depot clusters, which will hold the depot and the towns being serviced from that depot, our clusters can be
     # stored in an array
 
@@ -52,13 +48,13 @@ class MultipleTravellilngSalesman
 
     # for each cluster we slove the tsp and encode our routes in a Tour object
 
-    #tourList = Array.new
+    tourList = Array.new
 
-    #depotClusterList.each do |cluster|
-      #tourList << cluster.solve
-    #end
+    depotClusterList.each do |cluster|
+      tourList << cluster.solve
+    end
 
-    #return tourList
+    return tourList
   end
 
 end
@@ -184,20 +180,9 @@ class DepotCluster
 	def initialize(depot, localCities)
 		@depot = depot
 		@localCities = localCities
-
-    puts "---------------------- DEPOT ----------------------------"
-      puts @depot.inspect
-    puts "---------------------- END DEPOT ----------------------------"
-
-    puts "---------------------- CITIES ----------------------------"
-      puts @localCities.inspect
-    puts "---------------------- END CITIES ----------------------------"
 	end
 
 	def getDistanceFromDepot(town)
-    puts "---------------- DISTANCE --------------------"
-     puts @depot.getDistance town
-    puts "-------------------- END ---------------------"
     return @depot.getDistance town
 	end
 

@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
     @depots = Depot.order(:address)
 
     salesmen = MultipleTravellilngSalesman.new @orders, @depots
-    @clusterList = salesmen.solve
+    #@clusterList = salesmen.solve
 
     #@hash = Array.new
     #count = 0
