@@ -25,11 +25,11 @@ class MultipleTravellilngSalesman
     # From out depotList, create depot clusters, which will hold the depot and the towns being serviced from that depot, our clusters can be
     # stored in an array
 
-    #depotClusterList = Array.new
+    depotClusterList = Array.new
 
-    #depotManager.each do |clusterCenter|
-      #depotClusterList << DepotCluster.new(clusterCenter, Array.new)
-    #end
+    depotManager.each do |clusterCenter|
+      depotClusterList << DepotCluster.new(clusterCenter, Array.new)
+    end
 
 
     # We can now initially sort our towns into clusters with a basic algorithm, for each town, find the cluster with the closest center and
