@@ -1,11 +1,7 @@
 
 <div class = "container">
 
-  <div class = "panel panel-default">
-
-    <div class="panel-heading"><h3 class = "panel-title">Edit <%= resource_name.to_s.humanize %></h3></div>
-
-  <div class="panel-body">
+  <div class="well">
 
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
@@ -50,6 +46,3 @@
 
 </div>
 
-</div>
-
-</div>
