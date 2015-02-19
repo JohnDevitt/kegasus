@@ -17,8 +17,7 @@ class Listing < ActiveRecord::Base
       		:search_query,
       		:sorted_by,
       		:max_price,
-      		:filtered_by,
-      		:extraOpt
+      		:filtered_by
     	]
   	  )
 
@@ -75,12 +74,6 @@ class Listing < ActiveRecord::Base
   		end
 	  }
 
-	  scope :extraOpt, lambda { |extraOpt|
-	  	puts "-----------------------"
-	  	puts extrOpt.inspect
-	  	puts "-----------------------"
-	  }
-
 
 	  def self.options_for_sorted_by
 		[
@@ -93,7 +86,7 @@ class Listing < ActiveRecord::Base
 
 	  def self.options_for_filtered_by
 		[
-			['All', '2 OR 1 OR 0 OR 3 OR 4'],
+			['All', '*'],
 			['Beer', '0'],
 			['Wine', '1'],
 			['Spirits', '2'],
