@@ -86,7 +86,7 @@ class Listing < ActiveRecord::Base
 
 	  def self.options_for_filtered_by
 		[
-			['All', '*'],
+			['All', '0 AND 1 AND 2 AND 3 AND 4'],
 			['Beer', '0'],
 			['Wine', '1'],
 			['Spirits', '2'],
