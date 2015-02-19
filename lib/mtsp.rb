@@ -35,16 +35,16 @@ class MultipleTravellilngSalesman
     # We can now initially sort our towns into clusters with a basic algorithm, for each town, find the cluster with the closest center and
     # sort the town into that cluster
 
-    #tourManager.each do |city|
-      #nearestCluster = depotClusterList.at(0)
-      #depotClusterList.each do |cluster|
-        #if(cluster.getDistanceFromDepot city) < (nearestCluster.getDistanceFromDepot city)
-          #nearestCluster = cluster
-        #end
-      #end
+    tourManager.each do |city|
+      nearestCluster = depotClusterList.at(0)
+      depotClusterList.each do |cluster|
+        if(cluster.getDistanceFromDepot city) < (nearestCluster.getDistanceFromDepot city)
+          nearestCluster = cluster
+        end
+      end
 
-      #nearestCluster.addCity city
-    #end
+      nearestCluster.addCity city
+    end
 
     # for each cluster we slove the tsp and encode our routes in a Tour object
 
