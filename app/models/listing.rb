@@ -86,7 +86,12 @@ class Listing < ActiveRecord::Base
 
 	  def self.options_for_filtered_by
 		[
-			order('LOWER(categories)').map { |e| [e.name, e.id] }
+			['All', '[0,1,2,3,4]'],
+			['Beer', '0'],
+			['Wine', '1'],
+			['Spirits', '2'],
+			['Soft Drinks', '3'],
+			['Party Food', '4']
 		]
 	  end
 end
