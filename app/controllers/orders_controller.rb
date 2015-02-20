@@ -75,8 +75,8 @@ class OrdersController < ApplicationController
   end
 
   def fulfilOrder
-    @order = Order.find(params[:id])
-    @order.fulfilled = true
+    #@order = Order.find(params[:id])
+    #@order.fulfilled = true
   end
 
   # POST /orders
