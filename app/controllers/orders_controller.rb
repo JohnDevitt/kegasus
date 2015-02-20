@@ -74,6 +74,11 @@ class OrdersController < ApplicationController
       #@hash.push(lat: @orders.at(0).latitude, lng: @orders.at(0).longitude)
   end
 
+  def fulfilOrder
+    @order = Order.find(params[:id])
+    @order.fulfilled = true
+  end
+
   # POST /orders
   # POST /orders.json
   def create
