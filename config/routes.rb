@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   get 'orders/delivery_locations'
 
+  get 'orders/fulfilOrder'
+
   post 'depot/create'
 
   root 'pages#welcome'
