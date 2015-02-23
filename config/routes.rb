@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   get 'orders/delivery_locations'
 
-  get 'orders/fulfilOrder'
+  get 'orders/fulfil_order'
 
   post 'depot/create'
 

@@ -35,26 +35,26 @@ class OrdersController < ApplicationController
     @depots = Depot.order(:address)
 
     salesmen = MultipleTravellilngSalesman.new @orders, @depots
-    #@clusterList = salesmen.solve
+    @clusterList = salesmen.solve
 
-    #@hash = Array.new
-    #count = 0
+    @hash = Array.new
+    count = 0
 
-    #@clusterList.each do |cluster|
+    @clusterList.each do |cluster|
 
       #puts "====================================================="
       #puts cluster.inspect
       #puts "====================================================="
 
-      #@hash[count] = Gmaps4rails.build_markers(cluster) do |order, marker|
-        #marker.lat order.latitude
-        #marker.lng order.longitude
-        #marker.title order.address
-      #end
+      @hash[count] = Gmaps4rails.build_markers(cluster) do |order, marker|
+        marker.lat order.latitude
+        marker.lng order.longitude
+        marker.title order.address
+      end
 
-        #@hash[count].push(lat: cluster.at(0).latitude, lng: cluster.at(0).longitude, title: cluster.at(0).address)
-        #count = count + 1
-    #end
+        @hash[count].push(lat: cluster.at(0).latitude, lng: cluster.at(0).longitude, title: cluster.at(0).address)
+        count = count + 1
+    end
 
 
 
@@ -74,9 +74,12 @@ class OrdersController < ApplicationController
       #@hash.push(lat: @orders.at(0).latitude, lng: @orders.at(0).longitude)
   end
 
-  def fulfilOrder
-    #@order = Order.find(params[:id])
-    #@order.fulfilled = true
+  def fulfil_order
+    @order = Order.find(params[:id])
+    puts @order.inspect
+    @order.fulfilled = true
+    @order.save
+    redirect_to action: :delivery_locations
   end
 
   # POST /orders

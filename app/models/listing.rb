@@ -1,10 +1,14 @@
 class Listing < ActiveRecord::Base
 
 	  enum categories: [:beer, :wine, :spirits, :soft_drinks, :party_food]
-
+	  if Rails.env.development?
+	  	has_attached_file :image, :styles => { :medium => "200x200", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+	  else
 	  has_attached_file :image, :styles => { :medium => "200x200", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png",
 	  							:storage => :dropbox,
-    							:dropbox_credentials => Rails.root.join("config/dropbox.yml")
+    							:dropbox_credentials => Rails.root.join("config/dropbox.yml"),
+    							:path => ":style/:id_:filename"
+   		end
 	  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
 	  has_many :orders
