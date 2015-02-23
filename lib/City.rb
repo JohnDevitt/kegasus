@@ -1,9 +1,3 @@
-class Numeric
-  def to_rad
-    self * Math::PI / 180
-  end
-end
-
 class City
 
   def initialize(order)
