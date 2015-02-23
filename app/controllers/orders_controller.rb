@@ -31,10 +31,12 @@ class OrdersController < ApplicationController
 
   def delivery_locations
       
-    @orders = Order.where(fulfilled: false)
+    @orders = Order.where("fulfilled IS FALSE")
     @depots = Depot.order(:address)
 
-    salesmen = MultipleTravellilngSalesman.new @orders, @depots
+    salesmanOrders = Order.where("longitude IS NOT NULL AND fulfilled IS FALSE")
+
+    salesmen = MultipleTravellilngSalesman.new salesmanOrders, @depots
     @clusterList = salesmen.solve
 
     @hash = Array.new
