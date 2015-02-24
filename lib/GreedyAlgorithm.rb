@@ -1,3 +1,6 @@
+
+load 'Tour.rb'
+
 class GreedyAlgorithm
 
   def generateInitialTour (manager)
