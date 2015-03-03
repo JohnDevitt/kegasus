@@ -1,3 +1,8 @@
+
+load 'Tour.rb'
+load 'Location.rb'
+
+
 class RoutesController < ApplicationController
   def build_route
 
@@ -50,37 +55,40 @@ class RoutesController < ApplicationController
 
     route = Route.find(params[:route])
 
-    orders = route.orders
+    tour = Tour.new Location.new route.depot
+    route.orders.each do |order|
+      tour.addOrder Location.new order
+    end
+
+    tour.solve
+
+
     unfulfilledOrders = 0
 
-    orders.each do |order|
+    tour.eachOrder do |order|
       if order.fulfilled == false
         unfulfilledOrders = unfulfilledOrders + 1
       end
     end
 
-    puts "----------------------------------"
-    puts unfulfilledOrders
-    puts "----------------------------------"
-
     if unfulfilledOrders == 0
       redirect_to :controller => "orders", :action => "delivery_locations"
     end
 
-    depot = route.depot
+    depot = tour.getDepot
     depot_hash = Gmaps4rails.build_markers(depot) do |stop, marker|
-      marker.lat stop.latitude
-      marker.lng stop.longitude
-      marker.title stop.address
+      marker.lat stop.getLatitude
+      marker.lng stop.getLongitude
+      marker.title stop.getName
       
     end 
 
-    @orders = route.orders
+    @orders = tour.getOrders
   	@hash = Gmaps4rails.build_markers(@orders) do |stop, marker|
       if stop.fulfilled == false
-    		marker.lat stop.latitude
-    		marker.lng stop.longitude
-    		marker.title stop.address
+    		marker.lat stop.getLatitude
+    		marker.lng stop.getLongitude
+    		marker.title stop.getName
       end
   	end
 

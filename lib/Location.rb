@@ -25,15 +25,23 @@ class Location
     return @location.id
   end
 
+  def fulfilled
+    return @location.fulfilled
+  end
+
   def getDistance location
-    latitudeDifference = (location.getLatitude - @location.latitude).to_rad;
-    longitudeDifference = (location.getLongitude - @location.longitude).to_rad;
+    latitudeDifference = to_rad (location.getLatitude - @location.latitude);
+    longitudeDifference = to_rad (location.getLongitude - @location.longitude);
     a = Math.sin(latitudeDifference / 2) * Math.sin(latitudeDifference / 2) +
-    Math.cos(@location.latitude.to_rad) * Math.cos(location.getLatitude.to_rad) *
+    Math.cos(to_rad @location.latitude) * Math.cos(to_rad location.getLatitude) *
     Math.sin(longitudeDifference/2) * Math.sin(longitudeDifference/2);
     c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     d = 6371 * c;
     return d
 
+  end
+
+  def to_rad num
+    num * Math::PI / 180
   end
 end

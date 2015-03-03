@@ -25,10 +25,10 @@
               <% @orders.each do |order| %>
               <% if order.fulfilled == false %>
                 <tr> 
-                  <td><p><%= order.address %></p></td>
-                  <td><p><%= order.latitude %></p></td>
-                  <td><p><%= order.longitude %></p></td>
-                  <td><p><%= link_to 'Fulfil', {:action => "fulfil_order", :id => order.id}, {:class => "btn btn-primary"}%></p></td>
+                  <td><p><%= order.getName %></p></td>
+                  <td><p><%= order.getLatitude %></p></td>
+                  <td><p><%= order.getLongitude %></p></td>
+                  <td><p><%= link_to 'Fulfil', {:action => "fulfil_order", :id => order.getId}, {:class => "btn btn-primary"}%></p></td>
                 </tr>
                 <% end %>
               <% end %>
