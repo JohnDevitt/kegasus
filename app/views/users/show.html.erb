@@ -27,7 +27,20 @@
                   <td><p><%= number_to_currency(ShoppingCart.find(order.shopping_cart_id).subtotal, :unit => "€") %></p></td>
                   <td><p><%= order.longitude %></p></td>
                   <td><p><%= order.created_at %></p></td>
-                  <td><p><%= false %></p></td> 
+                  <td><p>
+                    <% if order.fulfilled == false && order.in_transit == false %>
+                      Order processing
+
+                    <% elsif order.fulfilled == false && order.in_transit == true %>
+                      <%= link_to "Track Order", routes_show_path(:route => order.route_id), class: "btn btn-success", data: {no_turbolink: true} %>
+
+                    <% elsif order.fulfilled == true && order.in_transit == true %>
+                      Delivered
+
+                    <% else %>
+                      Error 395
+                    <% end %>
+                  </p></td> 
                 </tr>
               <% end %>
             </tbody>

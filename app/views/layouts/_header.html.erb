@@ -32,6 +32,9 @@
               <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
               </hr>
               <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+              <% if current_user.admin == true %>
+                <li><%= link_to "Delivery Locations", orders_delivery_locations_path %></li>
+              <% end %>
             </ul>
           </li>
         <% else %>

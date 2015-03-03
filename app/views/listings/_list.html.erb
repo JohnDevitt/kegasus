@@ -35,6 +35,11 @@
                   <div class="col-lg-6">
                     <%= submit_tag 'Add to cart', class: "btn btn-primary btn-block"%>
                   </div>
+                  <% if(user_signed_in?)%>
+                    <% if current_user.admin == true %>
+                      <%= link_to 'Edit', edit_listing_path(listing), class: "btn btn-link" %>
+                    <% end %>
+                  <% end %>
                   <% end %>
                 </div>
             </div>

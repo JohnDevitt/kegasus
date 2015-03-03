@@ -1,4 +1,11 @@
 
+
+<% if(!user_signed_in?) || current_user.admin != true %>
+<script type="text/javascript">
+  window.location.href="/listings"
+  </script>
+<% end %>
+
 <div class="container">
 
 <h1>Editing listing</h1>

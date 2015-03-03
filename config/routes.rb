@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   
 
+  get 'routes/build_route'
+
+  get 'routes/fulfil_order'
+
   get 'depot/addDepot'
+
+  get 'routes/show'
 
   # resources :orders
 

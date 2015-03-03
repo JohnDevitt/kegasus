@@ -1,8 +1,6 @@
 
-load 'TourManager.rb'
-load 'DepotManager.rb'
-load 'DepotCluster.rb'
-load 'City.rb'
+load 'Manager.rb'
+load 'Tour.rb'
 
 
 class MultipleTravellilngSalesman
@@ -14,54 +12,47 @@ class MultipleTravellilngSalesman
 
   def solve()
 
-    # Generate immutable city objects from our delivery addresses and depots, and store them in immutable managers
+    # Create two manager objects, one to hold orders and one to hold depots
+    orderManager = Manager.new
+    orderManager.add_locations @orders
 
-    tourManager = TourManager.new Array.new
-    depotManager = DepotManager.new Array.new
-    
-    @orders.each do |order|
-      tourManager.addCity (City.new order).freeze
-    end
-    tourManager.deepFreeze
+    depotManager = Manager.new
+    depotManager.add_locations @depots
 
-    @depots.each do |depot|
-      depotManager.addDepot (City.new depot).freeze
-    end
-    depotManager.deepFreeze
+    # The list of the different routes
+    tourList = Array.new
 
-    # From out depotList, create depot clusters, which will hold the depot and the towns being serviced from that depot, our clusters can be
-    # stored in an array
-
-    depotClusterList = Array.new
-
-    depotManager.each do |clusterCenter|
-      depotClusterList << DepotCluster.new(clusterCenter, Array.new)
+    #For each depot, create a tour, hold each Tour in a list
+    depotManager.each do |depot|
+      tourList << Tour.new(depot)
     end
 
-
-    # We can now initially sort our towns into clusters with a basic algorithm, for each town, find the cluster with the closest center and
-    # sort the town into that cluster
-
-    tourManager.each do |city|
-      nearestCluster = depotClusterList.at(0)
-      depotClusterList.each do |cluster|
-        if(cluster.getDistanceFromDepot city) < (nearestCluster.getDistanceFromDepot city)
-          nearestCluster = cluster
+    # Now we sort each order into the Tour with the closest depot
+    orderManager.each do |order|
+      currentTour = tourList[0]
+      tourList.each do |tour|
+        if(order.getDistance tour.getDepot) < (order.getDistance currentTour.getDepot)
+          currentTour = tour
         end
       end
 
-      nearestCluster.addCity city
+      currentTour.addOrder order
     end
 
-    # for each cluster we slove the tsp and encode our routes in a Tour object
-
-    tourList = Array.new
-
-    depotClusterList.each do |cluster|
-      tourList << cluster.solve
+    # And solve
+    tourList.each do |tour|
+        tour.solve
     end
 
-    return tourList
+    result = Array.new
+
+    tourList.each do |tour|
+      if (tour.size > 1)
+        result << tour
+      end
+    end
+
+    return result
   end
 
 end

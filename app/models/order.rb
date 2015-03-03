@@ -1,5 +1,6 @@
 class Order < ActiveRecord::Base
 
+	belongs_to :route
 	belongs_to :user
 	has_one :shopping_cart
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141205163036) do
+ActiveRecord::Schema.define(version: 20150225115037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +52,11 @@ ActiveRecord::Schema.define(version: 20141205163036) do
     t.float    "latitude"
     t.float    "longitude"
     t.boolean  "fulfilled"
+    t.integer  "route_id"
+    t.boolean  "in_transit"
   end
+
+  add_index "orders", ["route_id"], name: "index_route_id", using: :btree
 
   create_table "pubs", force: true do |t|
     t.string   "name"
@@ -71,10 +75,12 @@ ActiveRecord::Schema.define(version: 20141205163036) do
   add_index "pubs_routes", ["route_id"], name: "index_pubs_routes_on_route_id", using: :btree
 
   create_table "routes", force: true do |t|
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "depot_id"
   end
+
+  add_index "routes", ["depot_id"], name: "index_depot_id", using: :btree
 
   create_table "rules", force: true do |t|
     t.string   "title"
@@ -114,6 +120,7 @@ ActiveRecord::Schema.define(version: 20141205163036) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.boolean  "admin"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

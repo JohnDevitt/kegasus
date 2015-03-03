@@ -31,57 +31,30 @@ class OrdersController < ApplicationController
 
   def delivery_locations
       
-    @orders = Order.where("fulfilled IS FALSE")
+
     @depots = Depot.order(:address)
+    @orders = Order.where("longitude IS NOT NULL AND fulfilled IS FALSE AND in_transit IS FALSE")
 
-    salesmanOrders = Order.where("longitude IS NOT NULL AND fulfilled IS FALSE")
+    puts "solving"
 
-    salesmen = MultipleTravellilngSalesman.new salesmanOrders, @depots
-    @clusterList = salesmen.solve
+    mtsp = MultipleTravellilngSalesman.new @orders, @depots
+    @tourList = mtsp.solve
 
     @hash = Array.new
     count = 0
 
-    @clusterList.each do |cluster|
+    @tourList.each do |tour|
 
-      #puts "====================================================="
-      #puts cluster.inspect
-      #puts "====================================================="
-
-      @hash[count] = Gmaps4rails.build_markers(cluster) do |order, marker|
-        marker.lat order.latitude
-        marker.lng order.longitude
-        marker.title order.address
+      @hash[count] = Gmaps4rails.build_markers(tour.getOrders) do |order, marker|
+        marker.lat order.getLatitude
+        marker.lng order.getLongitude
+        marker.title order.getName
       end
 
-        @hash[count].push(lat: cluster.at(0).latitude, lng: cluster.at(0).longitude, title: cluster.at(0).address)
+        @hash[count].insert(0, lat: tour.getDepot.getLatitude, lng: tour.getDepot.getLongitude, title: tour.getDepot.getName)
+        @hash[count].push(lat: tour.getDepot.getLatitude, lng: tour.getDepot.getLongitude, title: tour.getDepot.getName)
         count = count + 1
     end
-
-
-
-
-
-      #@orders = Order.where(fulfilled: false)
-
-      #salesman = Salesman.new @orders
-      #@orders = salesman.solve
-
-      #@hash = Gmaps4rails.build_markers(@orders) do |order, marker|
-       # marker.lat order.latitude
-       # marker.lng order.longitude
-       # marker.title order.address
-      #end
-
-      #@hash.push(lat: @orders.at(0).latitude, lng: @orders.at(0).longitude)
-  end
-
-  def fulfil_order
-    @order = Order.find(params[:id])
-    puts @order.inspect
-    @order.fulfilled = true
-    @order.save
-    redirect_to action: :delivery_locations
   end
 
   # POST /orders
@@ -92,6 +65,7 @@ class OrdersController < ApplicationController
     @shopping_cart = ShoppingCart.find(params[:shopping_cart_id])
     @order.shopping_cart_id = @shopping_cart.id
     @order.fulfilled = false
+    @order.in_transit = false
 
     if(user_signed_in?)
       @order.user_id = current_user.id

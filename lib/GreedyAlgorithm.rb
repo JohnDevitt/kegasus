@@ -1,24 +1,32 @@
 
 load 'Tour.rb'
+load 'Manager.rb'
 
 class GreedyAlgorithm
 
-  def generateInitialTour (manager)
-    tour = Tour.new Array.new
-    tour.addCity(manager.getCity(0))
-    return populateTour(tour, manager)
-  end
+  
+  def generateInitialTour locations
+    initialTour = Array.new
 
-  def populateTour(tour, manager)
-    if(tour.getSize == manager.getSize)
-      return tour
-    else
-      tour.addCity(findNextCity(tour, manager))
-      return populateTour(tour, manager)
+    initialTour[0] = locations[0]
+    for i in 1..tour.size - 1
+      closestLocation = locations[0]
+      for j in 0..tour.size - 1
+        if !(initialTour.include? tour[j])
+          if ((tour[i].getDistance tour[j]) <= (tour[i].getDistance closestLocation))
+            closestLocation = tour[j]
+          end
+        end
+      end
+
+      initialTour.add closestLocation
     end
+
+    puts initialTour
+
   end
 
-  def findNextCity(tour, manager)
+  def findNextCity tour, manager
     shortestDistance = 1000000
     nearestNeighbour = tour.lastCity
     manager.each do |city|
