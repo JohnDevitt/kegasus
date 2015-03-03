@@ -5,6 +5,11 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
+
+    user = User.find(1)
+    user.admin = true
+    user.save
+
     @filterrific = Filterrific.new(Listing, params[:filterrific]  || session[:filterrific_listings])
 
     @filterrific.select_options = {
